@@ -1,0 +1,26 @@
+int currentMachine = assignment[taskIndex];
+for (int j = 0; j < m; j++) {
+    if (j != currentMachine) {
+        // Временное изменение распределения
+        load[currentMachine] -= durations[taskIndex];
+        load[j] += durations[taskIndex];
+        int currentMaxLoad = 0;
+        for (int k = 0; k < m; k++) {
+            if (load[k] > currentMaxLoad) {
+                currentMaxLoad = load[k];
+            }
+        }
+        // если новое makespan лучше, сохранить это решение
+        if (currentMaxLoad < bestLoad) {
+            bestLoad = currentMaxLoad;
+            // сохранить временное распределение
+        }
+        // Возврат к предыдущему состоянию
+        load[j] -= durations[taskIndex];
+        load[currentMachine] += durations[taskIndex];
+    }
+}
+//пример использьзования 
+intervals = [(1, 3), (2, 5), (4, 7), (6, 9), (8, 10)]
+selected = interval_scheduling(intervals)
+print(selected)  # Выведет: [(1, 3), (4, 7), (8, 10)]
